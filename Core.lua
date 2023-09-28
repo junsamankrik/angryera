@@ -1,4 +1,11 @@
-local AngryAssign = LibStub("AceAddon-3.0"):NewAddon("AngryAssignments", "AceConsole-3.0", "AceEvent-3.0", "AceComm-3.0", "AceTimer-3.0")
+local _G = _G
+
+local appName, app = ...;
+local L = app.L;
+
+local GetAddOnMetadata = GetAddOnMetadata or C_AddOns.GetAddOnMetadata
+
+local AngryAssign = LibStub("AceAddon-3.0"):NewAddon(appName, "AceConsole-3.0", "AceEvent-3.0", "AceComm-3.0", "AceTimer-3.0")
 local AceGUI = LibStub("AceGUI-3.0")
 local libS = LibStub("AceSerializer-3.0")
 local libC = LibStub("LibCompress")
@@ -6,16 +13,17 @@ local lwin = LibStub("LibWindow-1.1")
 local libCE = libC:GetAddonEncodeTable()
 local LSM = LibStub("LibSharedMedia-3.0")
 
-BINDING_HEADER_AngryAssign = "Angry Assignments"
-BINDING_NAME_AngryAssign_WINDOW = "Toggle Window"
-BINDING_NAME_AngryAssign_LOCK = "Toggle Lock"
-BINDING_NAME_AngryAssign_DISPLAY = "Toggle Display"
-BINDING_NAME_AngryAssign_SHOW_DISPLAY = "Show Display"
-BINDING_NAME_AngryAssign_HIDE_DISPLAY = "Hide Display"
-BINDING_NAME_AngryAssign_OUTPUT = "Output Assignment to Chat"
+local AngryAssign_Title = GetAddOnMetadata(appName, "Title")
+local AngryAssign_Version = GetAddOnMetadata(appName, "Version")
+local AngryAssign_Timestamp = GetAddOnMetadata(appName, "X-Timestamp")
 
-local AngryAssign_Version = '@project-version@'
-local AngryAssign_Timestamp = '@project-date-integer@'
+_G["BINDING_HEADER_" .. appName] = "|cff0070DD" .. AngryAssign_Title
+_G["BINDING_NAME_" .. appName .. "_WINDOW"] = "Toggle Window"
+_G["BINDING_NAME_" .. appName .. "_LOCK"] = "Toggle Lock"
+_G["BINDING_NAME_" .. appName .. "_DISPLAY"] = "Toggle Display"
+_G["BINDING_NAME_" .. appName .. "_SHOW_DISPLAY"] = "Show Display"
+_G["BINDING_NAME_" .. appName .. "_HIDE_DISPLAY"] = "Hide Display"
+_G["BINDING_NAME_" .. appName .. "_OUTPUT"] = "Output Assignment to Chat"
 
 local isClassicVanilla = WOW_PROJECT_ID == WOW_PROJECT_CLASSIC
 local isClassicTBC = WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC
@@ -23,7 +31,7 @@ local isClassicWrath = WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC
 local isClassic = isClassicVanilla or isClassicTBC or isClassicWrath
 
 local protocolVersion = 1
-local comPrefix = "AnAss"..protocolVersion
+local comPrefix = appName .. protocolVersion
 local updateFrequency = 2
 local pageLastUpdate = {}
 local pageTimerId = {}
@@ -300,7 +308,7 @@ function AngryAssign:ProcessMessage(sender, data)
 		end
 
 		if localTimestamp ~= "dev" and timestamp ~= "dev" and timestamp > localTimestamp and localIsClassic == remoteIsClassic and not warnedOOD then
-			self:Print("Your version of Angry Assignments is out of date! Download the latest version from curse.com.")
+			self:Print("Your version of " .. AngryAssign_Title .. " is out of date! Download the latest version from curseforge.com.")
 			warnedOOD = true
 		end
 
@@ -873,7 +881,7 @@ end
 
 function AngryAssign:CreateWindow()
 	local window = AceGUI:Create("Frame")
-	window:SetTitle("Angry Assignments")
+	window:SetTitle(AngryAssign_Title)
 	window:SetStatusText("")
 	window:SetLayout("Flow")
 	if AngryAssign:GetConfig('scale') then window.frame:SetScale( AngryAssign:GetConfig('scale') ) end
@@ -1668,7 +1676,7 @@ function AngryAssign:CreateDisplay()
 	label:SetJustifyH("CENTER")
 	label:SetPoint("LEFT", 38, 0)
 	label:SetPoint("RIGHT", -38, 0)
-	label:SetText("Angry Assignments")
+	label:SetText(AngryAssign_Title)
 
 	local direction = CreateFrame("Button", nil, mover)
 	direction:SetPoint("LEFT", 2, 0)
@@ -1697,8 +1705,9 @@ function AngryAssign:CreateDisplay()
 	drag:SetScript("OnMouseDown", DragHandle_MouseDown)
 	drag:SetScript("OnMouseUp", DragHandle_MouseUp)
 	drag:SetAlpha(0.5)
+
 	local dragtex = drag:CreateTexture(nil, "OVERLAY")
-	dragtex:SetTexture("Interface\\AddOns\\AngryAssignments\\Textures\\draghandle")
+	dragtex:SetTexture("Interface\\AddOns\\" .. appName .. "\\Textures\\draghandle")
 	dragtex:SetWidth(16)
 	dragtex:SetHeight(16)
 	dragtex:SetBlendMode("ADD")
@@ -1706,7 +1715,7 @@ function AngryAssign:CreateDisplay()
 
 	local glow = text:CreateTexture()
 	glow:SetDrawLayer("BORDER")
-	glow:SetTexture("Interface\\AddOns\\AngryAssignments\\Textures\\LevelUpTex")
+	glow:SetTexture("Interface\\AddOns\\" .. appName .. "\\Textures\\LevelUpTex")
 	glow:SetSize(223, 115)
 	glow:SetTexCoord(0.56054688, 0.99609375, 0.24218750, 0.46679688)
 	glow:SetVertexColor( HexToRGB(self:GetConfig('glowColor')) )
@@ -1715,7 +1724,7 @@ function AngryAssign:CreateDisplay()
 
 	local glow2 = text:CreateTexture()
 	glow2:SetDrawLayer("BORDER")
-	glow2:SetTexture("Interface\\AddOns\\AngryAssignments\\Textures\\LevelUpTex")
+	glow2:SetTexture("Interface\\AddOns\\" .. appName .. "\\Textures\\LevelUpTex")
 	glow2:SetSize(418, 7)
 	glow2:SetTexCoord(0.00195313, 0.81835938, 0.01953125, 0.03320313)
 	glow2:SetVertexColor( HexToRGB(self:GetConfig('glowColor')) )
@@ -2199,7 +2208,7 @@ function AngryAssign:OnInitialize()
 	if ver:sub(1,1) == "@" then ver = "dev" end
 	
 	local options = {
-		name = "Angry Assignments "..ver,
+		name = appName..ver,
 		handler = AngryAssign,
 		type = "group",
 		args = {
@@ -2567,7 +2576,7 @@ function AngryAssign:OnInitialize()
 	self:RegisterChatCommand("aa", "ChatCommand")
 	LibStub("AceConfig-3.0"):RegisterOptionsTable("AngryAssign", options)
 
-	blizOptionsPanel = LibStub("AceConfigDialog-3.0"):AddToBlizOptions("AngryAssign", "Angry Assignments")
+	blizOptionsPanel = LibStub("AceConfigDialog-3.0"):AddToBlizOptions("AngryAssign", AngryAssign_Title)
 	blizOptionsPanel.default = function() self:RestoreDefaults() end
 end
 

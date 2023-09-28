@@ -1,20 +1,20 @@
 <Bindings>
-	<Binding name="AngryAssign_DISPLAY" header="AngryAssign" category="ADDONS">
+	<Binding name="AngryEra_DISPLAY" category="BINDING_HEADER_AngryEra">
 		AngryAssign_ToggleDisplay()
 	</Binding>
-	<Binding name="AngryAssign_SHOW_DISPLAY" category="ADDONS">
+	<Binding name="AngryEra_SHOW_DISPLAY" category="BINDING_HEADER_AngryEra">
 		AngryAssign_ShowDisplay()
 	</Binding>
-	<Binding name="AngryAssign_HIDE_DISPLAY" category="ADDONS">
+	<Binding name="AngryEra_HIDE_DISPLAY" category="BINDING_HEADER_AngryEra">
 		AngryAssign_HideDisplay()
 	</Binding>
-	<Binding name="AngryAssign_LOCK" category="ADDONS">
+	<Binding name="AngryEra_LOCK" category="BINDING_HEADER_AngryEra">
 		AngryAssign_ToggleLock()
 	</Binding>
-	<Binding name="AngryAssign_WINDOW" category="ADDONS">
+	<Binding name="AngryEra_WINDOW" category="BINDING_HEADER_AngryEra">
 		AngryAssign_ToggleWindow()
 	</Binding>
-	<Binding name="AngryAssign_OUTPUT" category="ADDONS">
+	<Binding name="AngryEra_OUTPUT" category="BINDING_HEADER_AngryEra">
 		AngryAssign_OutputDisplayed()
 	</Binding>
 </Bindings>

@@ -1,7 +1,9 @@
 ## Interface: 11404
-## Title: Angry Assignments
-## Author: Ermad
+## Title: Angry Era
+## Author: Mikinho
+## X-Original-Author: Ermad
 ## Version: @project-version@
+## X-Timestamp: @project-date-integer@
 ## SavedVariables: AngryAssign_Pages,AngryAssign_Categories,AngryAssign_State,AngryAssign_Config
 ## OptionalDeps: Ace3, AceGUI-3.0-SharedMediaWidgets, LibCompress, LibWindow-1.1
 
