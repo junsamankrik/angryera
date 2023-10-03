@@ -277,14 +277,13 @@ function AngryAssign:ProcessMessage(sender, data)
 		
 		
 	elseif cmd == "VERSION" then
-		local ver, timestamp
-		ver = tostring(data[VERSION_Version])
-		timestamp = tonumber(data[VERSION_Timestamp])
+		local ver = tostring(data[VERSION_Version])
+		local timestamp = tonumber(data[VERSION_Timestamp]) or 0
 
 		local localTimestamp = "dev"
 		local localIsClassic = 0
 		if AngryAssign_Timestamp:sub(1,1) ~= "@" then
-			localTimestamp = tonumber(AngryAssign_Timestamp)
+			localTimestamp = tonumber(AngryAssign_Timestamp) or 0
 			if AngryAssign_Version:sub(-3) == "tbc" then
 				localIsClassic = 2
 			elseif AngryAssign_Version:sub(-1) == "c" then
