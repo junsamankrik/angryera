@@ -1815,7 +1815,11 @@ function AngryAssign:UpdateMedia()
 	local fontName = LSM:Fetch("font", AngryAssign:GetConfig('fontName'))
 	local fontHeight = AngryAssign:GetConfig('fontHeight')
 	local fontFlags = AngryAssign:GetConfig('fontFlags')
-	
+
+	if fontFlags == "NONE" then
+		fontFlags = ""
+	end
+
 	self.display_text:SetTextColor( HexToRGB(self:GetConfig('color')) )
 	self.display_text:SetFont(fontName, fontHeight, fontFlags)
 	self.display_text:SetSpacing( AngryAssign:GetConfig('lineSpacing') )
@@ -2144,7 +2148,7 @@ local configDefaults = {
 	hideoncombat = false,
 	fontName = "Friz Quadrata TT",
 	fontHeight = 12,
-	fontFlags = "",
+	fontFlags = "NONE",
 	highlight = "",
 	highlightColor = "ffd200",
 	color = "ffffff",
