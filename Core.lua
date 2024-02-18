@@ -18,11 +18,15 @@ local AngryAssign_Version = GetAddOnMetadata(appName, "Version")
 local AngryAssign_Timestamp = GetAddOnMetadata(appName, "X-Timestamp")
 
 _G["BINDING_HEADER_" .. appName] = "|cff0070DD" .. AngryAssign_Title
+
 _G["BINDING_NAME_" .. appName .. "_WINDOW"] = "Toggle Window"
 _G["BINDING_NAME_" .. appName .. "_LOCK"] = "Toggle Lock"
 _G["BINDING_NAME_" .. appName .. "_DISPLAY"] = "Toggle Display"
 _G["BINDING_NAME_" .. appName .. "_SHOW_DISPLAY"] = "Show Display"
 _G["BINDING_NAME_" .. appName .. "_HIDE_DISPLAY"] = "Hide Display"
+_G["BINDING_NAME_" .. appName .. "_OUTPUT"] = "Output Assignment to Chat"
+_G["BINDING_NAME_" .. appName .. "_PREV_PAGE"] = "Previous Page"
+_G["BINDING_NAME_" .. appName .. "_NEXT_PAGE"] = "Next Page"
 _G["BINDING_NAME_" .. appName .. "_OUTPUT"] = "Output Assignment to Chat"
 
 local isClassicVanilla = WOW_PROJECT_ID == WOW_PROJECT_CLASSIC
@@ -1264,6 +1268,38 @@ end
 -- Performing changes functions --
 ----------------------------------
 
+function AngryAssign:PrevPage()
+	self:NextPage(true);
+end
+
+function AngryAssign:NextPage(reverse)
+	local page = AngryAssign_Pages[ AngryAssign_State.displayed ]
+	if not page then return end
+	if not page.CategoryId then return end
+
+	local tree = { }
+
+	for _, p in pairs(AngryAssign_Pages) do
+		if p.CategoryId and page.CategoryId == p.CategoryId then
+			table.insert(tree, p)
+		end
+	end
+
+	table.sort(tree, function(a, b) return a.Name < b.Name end)
+
+	for i = 1, #tree, 1 do
+		local p = tree[i]
+		if p.Id == page.Id then
+			local inc = 1
+			if reverse then inc = -1 end
+			local next = tree[i + inc]
+			if next then
+				return self:DisplayPage(next .Id)
+			end
+		end
+	end
+end
+
 function AngryAssign:SelectedId()
 	return selectedLastValue( AngryAssign_State.tree.selected )
 end
@@ -1603,6 +1639,14 @@ end
 
 function AngryAssign_HideDisplay()
 	AngryAssign:HideDisplay()
+end
+
+function AngryAssign_PrevPage()
+	AngryAssign:PrevPage()
+end
+
+function AngryAssign_NextPage()
+	AngryAssign:NextPage()
 end
 
 function AngryAssign:ShowDisplay()
