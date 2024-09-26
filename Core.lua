@@ -2255,7 +2255,7 @@ function AngryAssign:OnInitialize()
 	if ver:sub(1,1) == "@" then ver = "dev" end
 	
 	local options = {
-		name = appName..ver,
+		name = appName .. " " .. ver,
 		handler = AngryAssign,
 		type = "group",
 		args = {
@@ -2629,8 +2629,7 @@ end
 
 function AngryAssign:ChatCommand(input)
   if not input or input:trim() == "" then
-	InterfaceOptionsFrame_OpenToCategory(blizOptionsPanel)
-	InterfaceOptionsFrame_OpenToCategory(blizOptionsPanel)
+	Settings.OpenToCategory(AngryAssign_Title)
   else
     LibStub("AceConfigCmd-3.0").HandleCommand(self, "aa", "AngryAssign", input)
   end

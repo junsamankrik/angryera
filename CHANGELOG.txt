@@ -1,3 +1,7 @@
+## v2.0.5
+
+* Fixes for API changes introduced in 11504
+
 ## v2.0.4
 
 Version bump since I forgot to update this CHANGELOG on prior version
