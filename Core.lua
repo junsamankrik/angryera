@@ -12,6 +12,7 @@ local libC = LibStub("LibCompress")
 local lwin = LibStub("LibWindow-1.1")
 local libCE = libC:GetAddonEncodeTable()
 local LSM = LibStub("LibSharedMedia-3.0")
+local DDM = LibStub("LibDropDownMenu")
 
 local AngryAssign_Title = GetAddOnMetadata(appName, "Title")
 local AngryAssign_Version = GetAddOnMetadata(appName, "Version")
@@ -862,7 +863,7 @@ local function AngryAssign_TreeClick(widget, event, value, selected, button)
 			if not AngryAssign_DropDown then
 				AngryAssign_DropDown = CreateFrame("Frame", "AngryAssignMenuFrame", UIParent, "UIDropDownMenuTemplate")
 			end
-			EasyMenu(AngryAssign_CategoryMenu(-selectedId), AngryAssign_DropDown, "cursor", 0 , 0, "MENU")
+			DDM.EasyMenu(AngryAssign_CategoryMenu(-selectedId), AngryAssign_DropDown, "cursor", 0 , 0, "MENU")
 
 		else
 			local status = (widget.status or widget.localstatus).groups
@@ -875,7 +876,7 @@ local function AngryAssign_TreeClick(widget, event, value, selected, button)
 			if not AngryAssign_DropDown then
 				AngryAssign_DropDown = CreateFrame("Frame", "AngryAssignMenuFrame", UIParent, "UIDropDownMenuTemplate")
 			end
-			EasyMenu(AngryAssign_PageMenu(selectedId), AngryAssign_DropDown, "cursor", 0 , 0, "MENU")
+			DDM.EasyMenu(AngryAssign_PageMenu(selectedId), AngryAssign_DropDown, "cursor", 0 , 0, "MENU")
 
 			return false
 		end

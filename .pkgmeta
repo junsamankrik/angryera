@@ -47,3 +47,6 @@ externals:
 		tag: latest
 	libs/LibMustache:
 		url: https://github.com/mikinho/libmustache
+	libs/LibDropDownMenu:
+		url: https://github.com/HizurosWoWAddOns/LibDropDownMenu
+		tag: latest

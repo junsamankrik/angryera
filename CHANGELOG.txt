@@ -1,3 +1,7 @@
+## v2.0.6
+
+* Fixes for EasyMenu being removed in 11504
+
 ## v2.0.5
 
 * Fixes for API changes introduced in 11504

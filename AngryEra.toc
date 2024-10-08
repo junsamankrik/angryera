@@ -9,4 +9,6 @@
 
 embeds.xml
 
+Libs\LibDropDownMenu\LibDropDownMenu.xml
+
 Core.lua
