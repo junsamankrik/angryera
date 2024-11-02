@@ -904,6 +904,21 @@ function AngryAssign:CreateWindow()
 	window.frame:SetClampedToScreen(true)
 	tinsert(UISpecialFrames, "AngryAssign_Window")
 
+	local header = AceGUI:Create("SimpleGroup")
+	header:SetLayout("Flow")
+	header:SetFullWidth(true)
+	window:AddChild(header)
+
+	local searchLabel = AceGUI:Create("Label")
+	searchLabel:SetText("Search:")
+	searchLabel:SetWidth(40)
+	header:AddChild(searchLabel)
+
+	local searchBox = AceGUI:Create("EditBox")
+	searchBox:DisableButton(true)
+	searchBox:SetCallback("OnTextChanged", function(_, _, v) AngryAssign.window.tree:SetSearchKeyword(v) end)
+	header:AddChild(searchBox)
+
 	local tree = AceGUI:Create("AngryTreeGroup")
 	tree:SetTree( self:GetTree() )
 	tree:SelectByValue(1)

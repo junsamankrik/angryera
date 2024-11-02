@@ -388,7 +388,8 @@ local methods = {
 						self:BuildLevel(v.children, level+1, line)
 					end
 				end
-			elseif v.visible ~= false or not self.filter then
+			elseif (v.visible ~= false or not self.filter) and
+			       (self.searchKeyword == nil or self.searchKeyword == "" or string.find(v.text, self.searchKeyword)) then
 				addLine(self, v, tree, level, parent)
 			end
 		end
@@ -618,6 +619,11 @@ local methods = {
 	["LayoutFinished"] = function(self, width, height)
 		if self.noAutoHeight then return end
 		self:SetHeight((height or 0) + 20)
+	end,
+
+	["SetSearchKeyword"] = function(self, searchKeyword)
+		self.searchKeyword = searchKeyword
+		self:RefreshTree()
 	end
 }
 
